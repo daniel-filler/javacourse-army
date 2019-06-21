@@ -5,6 +5,7 @@ import lombok.SneakyThrows;
 
 import java.lang.invoke.SerializedLambda;
 import java.lang.reflect.Field;
+import java.util.Random;
 
 /**
  * @author Evgeny Borisov
@@ -29,11 +30,20 @@ public class ObjectFactory {
 
         Field[] fields = type.getDeclaredFields();
         for (Field field : fields) {
-           /* InjectRandomInt annotation = field.getAnnotation(InjectRandomInt.class);
-            if (annotation != null) {
-                int min = annotation.min();
-            }*/
-            if (field.isAnnotationPresent(InjectRandomName.class)) {
+            if (field.isAnnotationPresent(InjectRandomInt.class)) {
+                InjectRandomInt annotation = field.getAnnotation(InjectRandomInt.class);
+                if (annotation != null) {
+                    Random random = new Random();
+                    int min = annotation.min();
+                    int max = annotation.max();
+                    int randomBetweenMinAndMax = min + random.nextInt(max-min);
+                    field.setAccessible(true);
+                    field.set(t, randomBetweenMinAndMax);
+                }
+
+
+            }
+            else if (field.isAnnotationPresent(InjectRandomName.class)) {
                 String heroName = new Faker().chuckNorris().fact();
                 field.setAccessible(true);
                 field.set(t,heroName);
