@@ -18,6 +18,11 @@ public class JavaConfig implements Config {
     public <T> Class<T> getImplClass(Class<T> ifc) {
         return ifc2Class.get(ifc);
     }
+
+    @Override
+    public String getPackagesToScan() {
+        return "my_spring";
+    }
 }
 
 

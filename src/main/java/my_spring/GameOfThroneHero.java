@@ -10,9 +10,7 @@ import java.util.Random;
 @Data
 public class GameOfThroneHero {
     @InjectRandomName
-    private String name;
+   private String name;
 
-    @InjectRandomInt(min = 3, max = 7)
-    private int speed;
 
 }

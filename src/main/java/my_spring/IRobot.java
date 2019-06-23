@@ -1,5 +1,7 @@
 package my_spring;
 
+import lombok.Setter;
+
 import java.io.FileOutputStream;
 import java.rmi.dgc.DGC;
 import java.util.Comparator;
@@ -7,9 +9,12 @@ import java.util.Comparator;
 /**
  * @author Evgeny Borisov
  */
+@Setter
 public class IRobot {
-    private Speaker speaker = ObjectFactory.getInstance().createObject(Speaker.class);
-    private Cleaner cleaner = ObjectFactory.getInstance().createObject(Cleaner.class);
+    @InjectByType
+    private Speaker speaker;
+    @InjectByType
+    private Cleaner cleaner;
 
     public void cleanRoom() {
 
